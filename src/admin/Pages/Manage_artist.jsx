@@ -32,7 +32,7 @@ function Manage_artist() {
     id: "",
     name: "",
     email: "",
-    pass:"",
+    pass: "",
     mobile: "",
   });
 
@@ -145,10 +145,10 @@ function Manage_artist() {
   const submithandel = async (e) => {
     e.preventDefault(); // stop page reload
     if (validation()) {
-      const res = await axios.patch(`https://beaidal.com/single_artist.php${formvalue.id}`,formvalue);
+      const res = await axios.patch(`https://beaidal.com/single_artist.php${formvalue.id}`, formvalue);
       console.log(res);
       if (res.status === 200) {
-        setFormvalue({ ...formvalue, name: "", email: "", pass: "",  shop_title: "", mobile: "", area: "",  full_address: "",  map_url: "",  about: "",  services: "",  profile_img: "",  work_img: "",  product_used: "",  price: "",  travel_to_vanue: "",  airbrush: "",  status: "",  since_work: "",  timming: "" });
+        setFormvalue({ ...formvalue, name: "", email: "", pass: "", shop_title: "", mobile: "", area: "", full_address: "", map_url: "", about: "", services: "", profile_img: "", work_img: "", product_used: "", price: "", travel_to_vanue: "", airbrush: "", status: "", since_work: "", timming: "" });
         toast.success("Update success");
         fetch();
       }
@@ -239,9 +239,9 @@ function Manage_artist() {
                                     <label > Name:</label><br />
                                     <input className="form-control" type='text' name="name" value={formvalue.name} onChange={getform} /><br />
                                     <label>Email :</label><br />
-                                    <input className="form-control"  type="text" id="email" name="emil" value={formvalue.email} onChange={getform} /><br /><br />
+                                    <input className="form-control" type="text" id="email" name="emil" value={formvalue.email} onChange={getform} /><br /><br />
                                     <label > Artist Number :</label><br />
-                                    <input className="form-control"  type="text" id="number" name="mobile" value={formvalue.mobile} onChange={getform} /><br /><br />
+                                    <input className="form-control" type="text" id="number" name="mobile" value={formvalue.mobile} onChange={getform} /><br /><br />
                                     <label>Password</label>
                                     <input className="form-control" type="password" name='pass' value={formvalue.pass} onChange={getform} /><br></br>
                                     <label>Artist Image</label>
@@ -249,29 +249,29 @@ function Manage_artist() {
                                     <label>Shop Name</label>
                                     <input className="form-control" name='shop_title' onChange={getform} type="text" />
                                     <label>Artist Area</label>
-                                    <input className="form-control" name='area'  onChange={getform} type="text" />
+                                    <input className="form-control" name='area' onChange={getform} type="text" />
                                     <label>Artist Full Adsress</label>
-                                    <input className="form-control" name='full_address'  onChange={getform} type="text" />
+                                    <input className="form-control" name='full_address' onChange={getform} type="text" />
                                     <label>Artist Location</label>
                                     <input className="form-control" name='map_url' onChange={getform} type="text" />
                                     <label>Artist About</label>
-                                    <input className="form-control" name='about'  onChange={getform} type="text" />
+                                    <input className="form-control" name='about' onChange={getform} type="text" />
                                     <label>Artist Services</label>
-                                    <input className="form-control" name='services'  onChange={getform} type="text" />
+                                    <input className="form-control" name='services' onChange={getform} type="text" />
                                     <label>Artist Work Image</label>
-                                    <input className="form-control" name='work_img'  onChange={getform} type="text" />
+                                    <input className="form-control" name='work_img' onChange={getform} type="text" />
                                     <label>Artist Product used</label>
-                                    <input className="form-control" name='product_used'  onChange={getform} type="text" />
+                                    <input className="form-control" name='product_used' onChange={getform} type="text" />
                                     <label>Artist Price</label>
-                                    <input className="form-control" name='price'  onChange={getform} type="text" />
+                                    <input className="form-control" name='price' onChange={getform} type="text" />
                                     <label>Artist Travel</label>
-                                    <input className="form-control" name='travel_to_vanue'  onChange={getform} type="text" />
+                                    <input className="form-control" name='travel_to_vanue' onChange={getform} type="text" />
                                     <label>Artist Airbrush</label>
-                                    <input className="form-control" name='airbrush'  onChange={getform} type="text" />
+                                    <input className="form-control" name='airbrush' onChange={getform} type="text" />
                                     <label>Artist Since Work</label>
-                                    <input className="form-control" name='since_work'  onChange={getform} type="text" />
+                                    <input className="form-control" name='since_work' onChange={getform} type="text" />
                                     <label>Artist Timming</label>
-                                    <input className="form-control" name='timming'  onChange={getform} type="text" />
+                                    <input className="form-control" name='timming' onChange={getform} type="text" />
                                   </form>
 
 

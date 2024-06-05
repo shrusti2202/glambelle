@@ -1,14 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Header1() {
+  function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+useEffect(() => {
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    const currentTheme = localStorage.getItem('mode');
+
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        if (currentTheme === 'dark') {
+            toggleSwitch.checked = true;
+        }
+    }
+    toggleSwitch.addEventListener('change', switchTheme, false);
+
+}, [])
   return (
     <div>
-      <header id="site-header" className="fixed-top bg-dark"   >
+      <header id="site-header" className="fixed-top bg-dark"  >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-dark stroke py-lg-0">
             <h1><Link className="navbar-brand pe-xl-5 pe-lg-4" to="/">
-              <i className="fas fa-spa" />GlamBelle
+              <i className="fas fa-spa" />GlamBell
             </Link></h1>
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon fa icon-expand fa-bars" />
@@ -23,13 +48,16 @@ function Header1() {
                   <Link className="nav-link" to="/about">About</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/services">Services</Link>
+                  <Link className="nav-link" to="/artist">Artist</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/contact">Contact</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/blog">Blog</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">Login</Link>

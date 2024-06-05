@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 function Add_artist() {
-   
+
   const [formvalue, setFormvalue] = useState({
     name: "",
     email: "",
@@ -28,7 +28,7 @@ function Add_artist() {
     status: "",
     since_work: "",
     timming: ""
-    });
+  });
 
   const getform = (e) => {
     setFormvalue({ ...formvalue, id: new Date().getTime().toString(), [e.target.name]: e.target.value });
@@ -52,90 +52,21 @@ function Add_artist() {
       result = false;
       return false;
     }
-    if (formvalue.shop_title === "") {
-      toast.error("shop_title is required");
-      result = false;
-      return false;
-    }
-    if (formvalue.mobile === "") {
-      toast.error("mobile is required");
-      result = false;
-      return false;
-    }if (formvalue.area === "") {
-      toast.error("area is required");
-      result = false;
-      return false;
-    }if (formvalue.full_address === "") {
-      toast.error("full_address is required");
-      result = false;
-      return false;
-    }if (formvalue.map_url === "") {
-      toast.error("map_url is required");
-      result = false;
-      return false;
-    }if (formvalue.about === "") {
-      toast.error("about is required");
-      result = false;
-      return false;
-    }if (formvalue.services === "") {
-      toast.error("services is required");
-      result = false;
-      return false;
-    }if (formvalue.profile_img === "") {
-      toast.error("profile_img is required");
-      result = false;
-      return false;
-    }if (formvalue.work_img === "") {
-      toast.error("work_img is required");
-      result = false;
-      return false;
-    }if (formvalue.product_used === "") {
-      toast.error("product_used is required");
-      result = false;
-      return false;
-    }if (formvalue.price === "") {
-      toast.error("price is required");
-      result = false;
-      return false;
-    }if (formvalue.travel_to_vanue === "") {
-      toast.error("travel_to_vanue is required");
-      result = false;
-      return false;
-    }if (formvalue.airbrush === "") {
-      toast.error("airbrush is required");
-      result = false;
-      return false;
-    }
-    if (formvalue.status === "") {
-      toast.error("status is required");
-      result = false;
-      return false;
-    }
-    if (formvalue.since_work === "") {
-      toast.error("since_work is required");
-      result = false;
-      return false;
-    }
-    if (formvalue.timming === "") {
-      toast.error("timming is required");
-      result = false;
-      return false;
-    }
     return result;
   };
 
   const submithandel = async (e) => {
     e.preventDefault(); // stop page reload 
-    if (validation()){
-    const res = await axios.post(`https://beaidal.com/create_artist.php`, formvalue);
-    //console.log(res);
-    if (res.status == 200) {
-      setFormvalue({ ...formvalue, name: "", email: "", pss: "",  shop_title: "", mobile: "", area: "",  full_address: "",  map_url: "",  about: "",  services: "",  profile_img: "",  work_img: "",  product_used: "",  price: "",  travel_to_vanue: "",  airbrush: "",  status: "",  since_work: "",  timming: "" });
-      toast.success(res.data.message);
-      return false;
+    if (validation()) {
+      const res = await axios.post(`https://beaidal.com/create_artist.php`, formvalue);
+      //console.log(res);
+      if (res.status == 200) {
+        setFormvalue({ ...formvalue, name: "", email: "", pass: "", shop_title: "", mobile: "", area: "", full_address: "", map_url: "", about: "", services: "", profile_img: "", work_img: "", product_used: "", price: "", travel_to_vanue: "", airbrush: "", status: "", since_work: "", timming: "" });
+        toast.success(res.data.message);
+        return false;
+      }
     }
-  }
-};
+  };
   return (
     <div>
       <Menubar />
@@ -153,58 +84,58 @@ function Add_artist() {
                   Add Artist
                 </div>
                 <div className="panel-body">
-                  <form role="form"  method='post' onSubmit={submithandel}>
+                  <form role="form" method='post' onSubmit={submithandel}>
                     <div className="form-group">
                       <label>Artist Name</label>
-                      <input className="form-control" name='name' value={formvalue.name} type="text" />
+                      <input className="form-control" name='name' value={formvalue.name} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Email</label>
-                      <input className="form-control" name="email" value={formvalue.email} onChange={getform}  type="url" />
+                      <input className="form-control" name="email" value={formvalue.email} onChange={getform} type="email" />
                     </div>
                     <div className="form-group">
                       <label>Password</label>
-                      <input className="form-control" name='pass' value={formvalue.pass} onChange={getform}  type="text" />
+                      <input className="form-control" name='pass' value={formvalue.pass} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Shop Name</label>
-                      <input className="form-control" name='shop_title' value={formvalue.shop_title} onChange={getform}  type="text" />
+                      <input className="form-control" name='shop_title' value={formvalue.shop_title} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Number</label>
-                      <input className="form-control" name='mobile' value={formvalue.mobile} onChange={getform}  type="text" />
+                      <input className="form-control" name='mobile' value={formvalue.mobile} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Area</label>
-                      <input className="form-control" name='area' value={formvalue.area} onChange={getform}  type="text" />
+                      <input className="form-control" name='area' value={formvalue.area} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Full Adsress</label>
-                      <input className="form-control" name='full_address' value={formvalue.full_address} onChange={getform}  type="text" />
+                      <input className="form-control" name='full_address' value={formvalue.full_address} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Location</label>
-                      <input className="form-control" name='map_url' value={formvalue.map_url} onChange={getform}  type="text" />
+                      <input className="form-control" name='map_url' value={formvalue.map_url} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist About</label>
-                      <input className="form-control" name='about' value={formvalue.about} onChange={getform}  type="text" />
+                      <input className="form-control" name='about' value={formvalue.about} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Services</label>
-                      <input className="form-control" name='services' value={formvalue.services} onChange={getform}  type="text" />
+                      <input className="form-control" name='services' value={formvalue.services} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Image</label>
-                      <input className="form-control" name='profile_img' value={formvalue.profile_img} onChange={getform}  type="text" />
+                      <input className="form-control" name='profile_img' value={formvalue.profile_img} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Work Image</label>
-                      <input className="form-control" name='work_img' value={formvalue.work_img} onChange={getform}  type="text" />
+                      <input className="form-control" name='work_img' value={formvalue.work_img} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Product used</label>
-                      <input className="form-control" name='product_used' value={formvalue.product_used} onChange={getform}  type="text" />
+                      <input className="form-control" name='product_used' value={formvalue.product_used} onChange={getform} type="text" />
                     </div>
                     <div className="form-group">
                       <label>Artist Price</label>
@@ -230,11 +161,11 @@ function Add_artist() {
                       <label>Artist Timming</label>
                       <input className="form-control" name='timming' value={formvalue.timming} onChange={getform} type="text" />
                     </div>
-                    
+
 
                     <button type="submit" className="btn btn-info">Submit </button>
                   </form>
-                  </div>
+                </div>
 
               </div>
             </div>

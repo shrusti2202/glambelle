@@ -331,3 +331,9 @@ table.dataTable thead .sorting:after {
      display: none;
 }
 
+/* react tostify */
+
+.toastBody {
+    font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+  }

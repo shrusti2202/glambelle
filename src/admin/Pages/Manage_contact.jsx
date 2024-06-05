@@ -9,21 +9,21 @@ function Manage_contact() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-      fetch();
+    fetch();
   }, []);
 
   const fetch = async () => {
-    try{
+    try {
       const res = await axios.get(`https://beaidal.com/view_contacts.php`);
       setData(res.data);
-  }  catch(error){
-console.error("Error fetching contect:",error);
+    } catch (error) {
+      console.error("Error fetching contect:", error);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.post(`https://beaidal.com/delete_contacts.php`,{id:id});
+      await axios.post(`https://beaidal.com/delete_contacts.php`, { id: id });
       fetch(); // Refresh the data after successful deletion
       toast.success("Delete success");
     } catch (error) {
@@ -33,8 +33,8 @@ console.error("Error fetching contect:",error);
   };
   return (
     <div>
-        <Menubar/>
-        <div className="content-wrapper container" style={{ marginTop: '100px' }}>
+      <Menubar />
+      <div className="content-wrapper container" style={{ marginTop: '100px' }}>
         <div className="container">
           <div className="row pad-botm">
             <div className="col-md-12">
@@ -52,7 +52,7 @@ console.error("Error fetching contect:",error);
                   <div className="table-responsive">
                     <table className="table table-striped table-bordered table-hover" id="dataTables-example">
                       <thead>
-                        <tr style={{textAlign:'center'}}>
+                        <tr style={{ textAlign: 'center' }}>
                           <th>ID</th>
                           <th>Name</th>
                           <th>Email</th>
@@ -62,23 +62,22 @@ console.error("Error fetching contect:",error);
                         </tr>
                       </thead>
                       <tbody>
-                      {
-                                            data && data.map((value, index, arr) => {
-                                                return (
-                                                    <tr>
-                                                        <td>{value.id}</td>
-                                                        <td>{value.name}</td>
-                                                        <td>{value.email}</td>
-                                                        <td>{value.mobile}</td>
-                                                        <td>{value.comment}</td>
-                                                        <td className='d-flex'>
-                                                            <button className='btn btn-primary m-2'data-bs-toggle="modal" data-bs-target="#myModal">Edit</button>
-                                                            <button className='btn btn-danger  m-2'  onClick={() => handleDelete(value.id)}>Delete</button>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                        {
+                          data && data.map((value, index, arr) => {
+                            return (
+                              <tr>
+                                <td>{value.id}</td>
+                                <td>{value.name}</td>
+                                <td>{value.email}</td>
+                                <td>{value.mobile}</td>
+                                <td>{value.comment}</td>
+                                <td className='d-flex'>
+                                  <button className='btn btn-danger  m-2' onClick={() => handleDelete(value.id)}>Delete</button>
+                                </td>
+                              </tr>
+                            )
+                          })
+                        }
                       </tbody>
                     </table>
                   </div>
@@ -89,7 +88,7 @@ console.error("Error fetching contect:",error);
           </div>
         </div>
       </div>
-        <Footer/>
+      <Footer />
     </div>
   )
 }

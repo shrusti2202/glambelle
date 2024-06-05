@@ -1,0 +1,51 @@
+{
+    "artist": [
+        {
+            "name": "",
+            "email": "",
+            "pass": "",
+            "shop_title": "",
+            "mobile": "",
+            "area": "",
+            "full_address": "",
+            "map_url": "",
+            "about": "",
+            "services": "",
+            "profile_img": "",
+            "work_img": "",
+            "product_used": "",
+            "price": "",
+            "travel_to_vanue": "",
+            "airbrush": "",
+            "status": "",
+            "since_work": "",
+            "timming": ""
+        }
+    ],
+    "Blog": [
+        {
+            " id": "",
+            " title": "",
+            " image": "",
+            " description": ""
+        }
+    ],
+    "contact": [
+        {
+            "name": "",
+            " email": "",
+            "mobile": "",
+            "comment": ""
+        }
+    ],
+    "user": [
+        {
+            "id": "",
+            "name": "",
+            "email": "",
+            "pass": "",
+            "mobile": ""
+        }
+    ]
+  
+}

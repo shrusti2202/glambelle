@@ -1,14 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function Menubar() {
+  const redirect = useNavigate();
+
+    // Delete session
+    const logout = () => {
+        localStorage.removeItem('userid');
+        localStorage.removeItem('uname');
+        toast.success('Logout Success');
+        redirect('/')
+      }
   return (
     <div>
       <header id="site-header" className="fixed-top bg-dark" style={{ letterSpacing: '2px' }}  >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-dark stroke py-lg-0">
             <h1><a className="navbar-brand pe-xl-5 pe-lg-4" href="index.html">
-              <i className="fas fa-spa" />GlamBelle
+              <i className="fas fa-spa" />GlamBell
             </a></h1>
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon fa icon-expand fa-bars" />
@@ -22,7 +32,7 @@ function Menubar() {
                 <li className='nav-item'>
                   <Link to="#" className="dropdown-toggle nav-link" id="ddlmenuItem" data-toggle="dropdown">Artist</Link>
                   <ul className="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                    <li className='nav-item' ><Link to="/add_artist">Add Artist</Link></li>
+                    {/* <li className='nav-item' ><Link to="/add_artist">Add Artist</Link></li> */}
                     <li className='nav-item'><Link to="/manage_artist">Manage Artist</Link></li>
                   </ul>
                 </li>
@@ -40,31 +50,48 @@ function Menubar() {
                     <li className='nav-item'><Link to="/Manage_blog">Manage Blog</Link></li>
                   </ul>
                 </li>
-                <li className="nav-item">
+                {(
+                                        () => {
+                                            if (localStorage.getItem('userid')) {
+                                                return (
+                                                    <>
+                                                        <a href="javascript:void(0)" onClick={logout} className="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block" style={{ color: "white" }}>Logout</a>
+                                                    </>
+                                                )
+                                            }
+                                            else {
+                                                return (
+                                                    <>
+                                                        <Link className="nav-link" to="/admin_login">Login </Link>
+                                                    </>
+                                                )
+                                            }
+                                        }
+                                    )()}
+                {/* <li className="nav-item">
                   <Link className="nav-link" to="/admin_login">Login</Link>
-                </li>
+                </li> */}
               </ul>
-              
+
             </div>
             {/*/search-right*/}
             <ul className="header-search me-lg-4">
-                <li className="nav-item search-right">
-                  <a href="#search" className="btn search-btn " title="search">Search <span className="fas fa-search ms-3" aria-hidden="true" /></a>
-                  {/* search popup */}
-                  <div id="search" className="pop-overlay">
-                    <div className="popup">
-                      <h3 className="title-w3l two mb-4 text-left">Search Here</h3>
-                      <form action="#" method="GET" className="search-box d-flex position-relative">
-                        <input type="search" placeholder="Enter Keyword here" name="search" required="required" autofocus />
-                        <button type="submit" className="btn"><span className="fas fa-search" aria-hidden="true" /></button>
-                      </form>
-                    </div>
-                    <a className="close" href="#close">×</a>
+              <li className="nav-item search-right">
+                <a href="#search" className="btn search-btn " title="search">Search <span className="fas fa-search ms-3" aria-hidden="true" /></a>
+                {/* search popup */}
+                <div id="search" className="pop-overlay">
+                  <div className="popup">
+                    <h3 className="title-w3l two mb-4 text-left">Search Here</h3>
+                    <form action="#" method="GET" className="search-box d-flex position-relative">
+                    <input type="search" placeholder="Enter Keyword here" style={{color:'white'}} name="search" required="required" autofocus />
+                    </form>
                   </div>
-                  {/* /search popup */}
-                </li>
-              </ul>
-              {/*//search-right*/}
+                  <a className="close" href="#close">×</a>
+                </div>
+                {/* /search popup */}
+              </li>
+            </ul>
+            {/*//search-right*/}
             {/* toggle switch for light and dark theme */}
             <div className="mobile-position">
               <nav className="navigation">

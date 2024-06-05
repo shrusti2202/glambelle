@@ -1,9 +1,26 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import Footer from '../Components/Footer'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Header from '../Components/Header'
 
 function Blog() {
+  const { bid } = useParams()
+  const [data, setdata] = useState([])
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(`https://beaidal.com/view_blog.php`);
+      if (res.status === 200) {
+        const blog = res.data.filter(item => item.id == bid)
+        setdata(res.data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <div>
       <Header />
@@ -27,6 +44,7 @@ function Blog() {
           </div>
         </section>
       </div>
+      
       <section className="w3l-video-sec py-5" id="video">
         <div className="container py-md-5">
           <div className="row">
@@ -54,6 +72,31 @@ function Blog() {
           </div>
         </div>
       </section>
+
+      <section className="w3l-contact-2 py-5" id="contact">
+          <div className="container py-lg-4 py-md-3 py-2">
+            <div className="title-content text-center">
+              <h6 className="title-subw3hny mb-1">Blog</h6>
+              <h3 className="title-w3l mb-5">Read Blog About<br />
+                Beauty care!</h3>
+            </div>
+            <div className="artist-grids d-grid mt-5 pt-lg-3">
+              {data && data.map((value) => (
+                <div className='artist-card' key={value.id}>
+                  <div className='artist_img'>
+                    <img src={value.image} alt="artist img" />
+                  </div>
+                  <div className='artist_content'>
+                    <h4 className='artist_name  my-2'>{value.title}</h4>
+                    <div className='d-flex justify-content-between align-items-center'>
+                     <p>{value.description}</p>
+                    </div>
+                    <Link to={`/single_blog/${value.id}`} className='btn btn-primary my-2'>Read Blog</Link>
+                  </div>
+                </div>))}
+            </div>
+            </div>
+        </section>
       <Footer />
     </div>
   )

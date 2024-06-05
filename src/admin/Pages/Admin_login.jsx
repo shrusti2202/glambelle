@@ -28,7 +28,7 @@ function Admin_login() {
                         <input className="form-control" placeholder="Password" name="password" type="password" />
                       </div>
                       {/* Change this to a button or input when using this as a form */}
-                      <button  className="btn btn-lg btn-success btn-block">Login</button>
+                      <button className="btn btn-lg btn-success btn-block">Login</button>
                       <Link to="/admin_signup">If you not Registered then Register Here</Link>
                     </fieldset>
                   </form>

@@ -6,14 +6,16 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 function Add_blog() {
-  const redirect=useNavigate();
+
   const [formvalue, setFormvalue] = useState({
+    id:"",
     title: "",
     image: "",
     description: ""
   });
+
   const getform = (e) => {
-    setFormvalue({ ...formvalue, [e.target.name]: e.target.value });
+    setFormvalue({ ...formvalue, id: new Date().getTime().toString(), [e.target.name]: e.target.value });
     console.log(formvalue);
   }
 
@@ -41,14 +43,15 @@ function Add_blog() {
     e.preventDefault();
     if (validation()) {
       const res = await axios.post(`https://beaidal.com/create_blog.php`, formvalue);
+      // console.log(res);
       if (res.status === 200) {
-        setFormvalue({ ...formvalue, title: "", image: "", description: ""});
+        setFormvalue({ ...formvalue, title: "", image: "", description: "" });
         toast.success(res.data.message);
-        redirect('/Manage_blog');
+        return false;
       }
     }
   };
-  
+
   return (
     <div>
       <Menubar />
@@ -73,7 +76,7 @@ function Add_blog() {
                     </div>
                     <div className="form-group">
                       <label>Image</label>
-                      <input className="form-control" type="text" name='image' value={formvalue.image} onChange={getform}/>
+                      <input className="form-control" type="url" name='image' value={formvalue.image} onChange={getform} />
                     </div>
                     <div className="form-group">
                       <label>Description</label>

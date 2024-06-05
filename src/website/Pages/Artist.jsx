@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { Link } from 'react-router-dom'
 import Footer from '../Components/Footer'
+import axios from 'axios'
 
-function Services() {
+function Artist() {
+    const [data, setData] = useState([])
+    const fetch = async () => {
+        try {
+            const res = await axios.get(`https://beaidal.com/view_artist.php`);
+            if (res.status === 200) {
+                setData(res.data)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        fetch()
+    }, [])
     return (
         <div>
             <Header />
@@ -13,7 +28,7 @@ function Services() {
                         <div className="w3breadcrumb-gids">
                             <div className="w3breadcrumb-left text-left">
                                 <h2 className="inner-w3-title">
-                                    Services </h2>
+                                    Artist </h2>
                                 <p className="inner-page-para mt-2">
                                     Beauty awakens the soul to act</p>
                             </div>
@@ -50,6 +65,37 @@ function Services() {
                         {/*//row-1*/}
                     </div>
                 </div>
+                
+                <section className="w3l-contact-2 py-5" id="contact">
+                    <div className="container py-lg-4 py-md-3 py-2">
+                        <div className="title-content text-center">
+                            <h6 className="title-subw3hny mb-1">All Artist</h6>
+                            <h3 className="title-w3l mb-5">most famous creative artist<br />
+                                in World.</h3>
+                        </div>
+                <div className="artist-grids d-grid mt-5 pt-lg-3">
+                            {
+                          data && data.map((value, index, arr) => {
+                            return (
+                                <div>
+                                <div className='artist-card' key={value.id}></div>
+                                <div className='artist_img'> <img src={value.profile_img}/></div>
+                                <div className='artist_content '>
+                                <h4 className='artist_name '>{value.name}</h4>
+                                </div>
+                                <div  className='d-flex justify-content-between align-items-center'>
+                                <h6 className='artist_time my-2'>{value.timming}</h6>
+                                <h3 className='artist_price my-2'>{value.price}</h3>
+                                </div>
+                                <Link to={`/artist/${value.id}`} className='btn btn-primary'>View Artist</Link>
+                                </div>
+                            )
+                          })
+                        }
+
+                        </div>
+                        </div>
+                </section>
                 {/*//w3l-services-1*/}
                 <section className="w3l-services-2" id="services1">
                     <div className="midd-w3 py-5">
@@ -148,4 +194,4 @@ function Services() {
     )
 }
 
-export default Services
+export default Artist

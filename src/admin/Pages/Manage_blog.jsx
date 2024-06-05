@@ -3,32 +3,30 @@ import Menubar from '../Components/Menubar'
 import Footer from '../Components/Footer'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 
 function Manage_blog() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetchContacts();
+    fetch();
   }, []);
 
-  const fetchContacts = async () => {
-    try {
-      const response = await axios.get(`https://beaidal.com/view_blog.php`);
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching contacts:", error);
-    }
-  };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.post(`https://beaidal.com/delete_blog.php`, { id: id });
-      fetchContacts(); // Refresh the data after successful deletion
-      toast.success("Delete success");
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    }
-  };
+  const fetch = async () => {
+    const res = await axios.get(`https://beaidal.com/view_blog.php`);
+    console.log(res.data);
+    setData(res.data);
+}
+
+
+  const deleteHandel = async (id) => {
+    const res = await axios.post(`https://beaidal.com/delete_blog.php`,{id:id});
+    toast.success("Blog Delete Success")
+    fetch();
+  }
+
+
 
   // Edit
   const [formvalue, setFormvalue] = useState({
@@ -68,28 +66,20 @@ function Manage_blog() {
     return result;
   };
   //  save edit
+ 
+
   const submithandel = async (e) => {
     e.preventDefault(); // stop page reload
     if (validation()) {
-      const res = await axios.patch(
-        `https://beaidal.com/single_blog.php${formvalue.id}`,
-        formvalue
-      );
-      console.log(res);
-      if (res.status === 200) {
-        setFormvalue({
-          ...formvalue,
-          title: "",
-          image: "",
-          description: "",
-        });
-        toast.success("Update success");
-        fetch();
-      }
+        const res = await axios.patch(`https://beaidal.com/single_blog.php/${formvalue.id}`, formvalue);
+        console.log(res);
+        if (res.status == 200) {
+            setFormvalue({ ...formvalue, title: "", image: "", description: ""});
+            toast.success("Update success");
+            fetch();
+        }
     }
-  };
-
-
+}
   return (
     <div>
       <Menubar />
@@ -126,11 +116,11 @@ function Manage_blog() {
                               <tr>
                                 <td>{value.id}</td>
                                 <td>{value.title}</td>
-                                <td>{value.image}</td>
+                                <td><img src={value.image} height="50px"></img></td>
                                 <td>{value.description}</td>
                                 <td className='d-flex'>
                                   <button className='btn btn-primary m-2' data-bs-toggle="modal" data-bs-target="#myModal" onClick={() => editdata(value.id)}>Edit</button>
-                                  <button className='btn btn-danger  m-2' onClick={() => handleDelete(value.id)}>Delete</button>
+                                  <button className='btn btn-danger  m-2' onClick={() => deleteHandel(value.id)}>Delete</button>
                                 </td>
                               </tr>
 
@@ -138,89 +128,40 @@ function Manage_blog() {
                             )
                           })
                         }
-                        <div className="modal" id="myModal">
-                          <div className="modal-dialog">
-                            <div className="modal-content">
-                              {/* Modal Header */}
-                              <div className="modal-header">
-                                <h4 className="modal-title">Edit Blog</h4>
-                                <button
-                                  type="button"
-                                  className="btn-close"
-                                  data-bs-dismiss="modal"
-                                />
-                              </div>
-                              {/* Modal body */}
-                              <div className="modal-body">
-                                <div className="container">
-                                  <form action="" method="post">
-                                    <div className="row g-4 mp-2">
-                                      <div className="col-md-6">
-                                        <div className="form-floating">
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            name="title"
-                                            value={formvalue.title}
-                                            onChange={getform}
-                                            id="title"
-                                            placeholder="Title"
-                                          />
-                                          <label htmlFor="name">Title</label>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                        <div className="form-floating">
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            name="image"
-                                            value={formvalue.image}
-                                            onChange={getform}
-                                            id="image"
-                                            placeholder="image"
-                                          />
-                                          <label htmlFor="image">Image</label>
-                                        </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                        <div className="form-floating">
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            name="description"
-                                            value={formvalue.description}
-                                            onChange={getform}
-                                            id="description"
-                                            placeholder="description"
-                                          />
-                                          <label htmlFor="name">Description</label>
-                                        </div>
-                                      </div>
 
-                                      <div className="col-12">
-                                        <button
-                                          onClick={submithandel}
-                                          data-bs-dismiss="modal"
-                                          className="btn btn-primary w-100 py-3"
-                                          type="submit"
-                                        >
-                                          Save
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </form>
+
+                        <div>
+
+                          {/* The Modal */}
+                          <div className="modal" id="myModal">
+                            <div className="modal-dialog">
+                              <div className="modal-content">
+                                {/* Modal Header */}
+                                <div className="modal-header">
+                                  <h4 className="modal-title">Edit Blog</h4>
+                                  <button type="button" className="btn-close" data-bs-dismiss="modal" />
                                 </div>
-                              </div>
-                              {/* Modal footer */}
-                              <div className="modal-footer">
-                                <button
-                                  type="button"
-                                  className="btn btn-danger"
-                                  data-bs-dismiss="modal"
-                                >
-                                  Close
-                                </button>
+                                {/* Modal body */}
+
+                                <div className="modal-body">
+                                  <form>
+                                    <label > Title:</label><br />
+                                    <input className="form-control" type='text' name="title" value={formvalue.title} onChange={getform} /><br />
+                                    <label>Image :</label><br />
+                                    <input className="form-control" type="url" name="image" value={formvalue.image} onChange={getform} /><br /><br />
+                                    <label > Artist Description :</label><br />
+                                    <input className="form-control" type="text" name="description" value={formvalue.description} onChange={getform} /><br /><br />
+
+                                  </form>
+
+
+                                </div>
+
+                                {/* Modal footer */}
+                                <div className="modal-footer d-flex">
+                                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={submithandel}>Save</button>
+                                </div>
                               </div>
                             </div>
                           </div>
